@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SundBox:) — Garry's Mod Sandbox Server</title>
+  <meta name="description" content="Официальный сайт сервера Garry's Mod SundBox:) — Режим Sandbox, Wiremod, E2, Донат-магазин и комьюнити" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* ============================================================
+       SUNDBOX:) DESIGN SYSTEM — DARK RETROWAVE & GLASSMORPHISM
+       ============================================================ */
+    :root {
+      --bg-color: #0a0712;
+      --card-bg: rgba(26, 17, 43, 0.48);
+      --card-border: 1px solid rgba(255, 94, 184, 0.2);
+      --card-radius: 28px;
+      --card-blur: 24px;
+      
+      --gradient-sunset: linear-gradient(135deg, #ffe600 0%, #ff7b00 45%, #ff2a85 100%);
+      --gradient-accent: linear-gradient(135deg, #ff2a85 0%, #9d4edd 100%);
+      
+      --color-pink: #ff2a85;
+      --color-orange: #ff7b00;
+      --color-yellow: #ffe600;
+      --color-purple: #9d4edd;
+      --color-green: #00ff88;
+      --color-discord: #5865F2;
+      
+      --text-main: #ffffff;
+      --text-muted: #a7a2bd;
+      
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      selection-background-color: var(--color-pink);
+      selection-color: #fff;
+    }
+
+    ::selection {
+      background: var(--color-pink);
+      color: #fff;
+    }
+
+    /* Background Ambient & Orbs */
+    .bg-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      top: -120px;
+      left: -120px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #ff2a85 0%, #9d4edd 50%, transparent 70%);
+      opacity: 0.35;
+      animation: pulseGlow 9s ease-in-out infinite alternate;
+    }
+
+    .orb-2 {
+      top: 25%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, #ff7b00 0%, #ff2a85 45%, transparent 70%);
+      opacity: 0.2;
+    }
+
+    .orb-3 {
+      bottom: -100px;
+      right: -100px;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, #9d4edd 0%, #ff2a85 40%, transparent 75%);
+      opacity: 0.3;
+    }
+
+    /* Retrowave Grid */
+    .retro-grid {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 340px;
+      opacity: 0.22;
+      background-image: 
+        linear-gradient(to right, rgba(255, 42, 133, 0.25) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 123, 0, 0.2) 1px, transparent 1px);
+      background-size: 48px 48px;
+      transform: perspective(480px) rotateX(65deg);
+      transform-origin: bottom center;
+      mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%);
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%);
+    }
+
+    .horizon-glow {
+      position: absolute;
+      bottom: 170px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, #ff2a85 30%, #ffe600 50%, #ff2a85 70%, transparent 100%);
+      box-shadow: 0 0 16px #ff2a85;
+      opacity: 0.45;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1); opacity: 0.3; }
+      100% { transform: scale(1.15); opacity: 0.45; }
+    }
+
+    /* Glassmorphism Classes */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(var(--card-blur));
+      -webkit-backdrop-filter: blur(var(--card-blur));
+      border: var(--card-border);
+      border-radius: var(--card-radius);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.55);
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(255, 94, 184, 0.4);
+    }
+
+    /* Typography & Gradients */
+    .text-gradient {
+      background: var(--gradient-sunset);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .font-display { font-family: var(--font-display); }
+    .font-mono { font-family: var(--font-mono); }
+
+    /* Layout Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      width: 100%;
+      padding: 14px 0;
+      background: rgba(10, 7, 18, 0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 94, 184, 0.15);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-sandbox {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(255, 42, 133, 0.2);
+      color: var(--color-pink);
+      border: 1px solid rgba(255, 42, 133, 0.35);
+      font-family: var(--font-display);
+      margin-left: 8px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-quick-ip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-quick-ip:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+    }
+
+    .btn-play-steam {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      background: var(--gradient-sunset);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(255, 42, 133, 0.45);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-play-steam:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(255, 42, 133, 0.75);
+    }
+
+    /* Tabs Container */
+    .tab-content {
+      display: none;
+      animation: fadeInTab 0.3s ease forwards;
+      padding: 24px 0 120px 0;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeInTab {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 30px 0 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sun-container {
+      position: relative;
+      margin-bottom: 24px;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    .sun-container:hover {
+      transform: scale(1.04);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      background: rgba(26, 17, 43, 0.7);
+      border: 1px solid rgba(255, 94, 184, 0.3);
+      color: var(--color-yellow);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: var(--font-display);
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 8vw, 76px);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 14px;
+      text-shadow: 0 0 35px rgba(255, 42, 133, 0.5);
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: clamp(14px, 2vw, 17px);
+      max-width: 620px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    .btn-hero-primary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 18px;
+      background: var(--gradient-sunset);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 0 30px rgba(255, 42, 133, 0.6);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-hero-primary:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 45px rgba(255, 42, 133, 0.9);
+    }
+
+    .btn-hero-secondary {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 18px;
+      background: rgba(26, 17, 43, 0.6);
+      color: #fff;
+      border: 1px solid rgba(255, 94, 184, 0.35);
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-hero-secondary:hover {
+      background: rgba(26, 17, 43, 0.9);
+      border-color: var(--color-pink);
+    }
+
+    /* Server Monitoring Card */
+    .server-card {
+      width: 100%;
+      max-width: 860px;
+      padding: 26px;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .server-card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: rgba(0, 255, 136, 0.15);
+      border: 1px solid rgba(0, 255, 136, 0.35);
+      color: var(--color-green);
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-green);
+      box-shadow: 0 0 10px var(--color-green);
+    }
+
+    .ip-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .ip-title {
+      font-size: 11px;
+      color: var(--color-orange);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      font-family: var(--font-display);
+    }
+
+    .ip-address {
+      font-family: var(--font-mono);
+      font-size: clamp(18px, 4vw, 24px);
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ip-address:hover {
+      color: var(--color-yellow);
+    }
+
+    .ip-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-copy {
+      padding: 10px 18px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-copy:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      margin-top: 10px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-family: var(--font-display);
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      border-radius: 9999px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      padding: 2px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 9999px;
+      background: var(--gradient-sunset);
+      box-shadow: 0 0 12px rgba(255, 42, 133, 0.7);
+      width: 75%;
+    }
+
+    /* Perks Grid */
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .perk-card {
+      padding: 24px;
+      text-align: left;
+    }
+
+    .perk-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .perk-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+
+    .perk-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .perk-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Shop Tab Styles */
+    .shop-plan-card {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px;
+      text-align: left;
+    }
+
+    .duration-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .duration-btn {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+
+    .duration-btn.active {
+      background: rgba(255, 42, 133, 0.22);
+      border-color: var(--color-pink);
+      box-shadow: 0 0 20px rgba(255, 42, 133, 0.35);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #fff;
+      font-size: 13px;
+      font-family: var(--font-mono);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: var(--color-pink);
+    }
+
+    /* Rules Tab */
+    .rules-list {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .rule-item {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: left;
+    }
+
+    /* Floating Bottom Dock Navigation */
+    .dock-nav {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 40;
+      width: auto;
+      max-width: 94vw;
+    }
+
+    .dock-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 32px;
+      background: rgba(20, 13, 34, 0.78);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 94, 184, 0.22);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65);
+    }
+
+    .dock-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 22px;
+      color: var(--text-muted);
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .dock-tab:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .dock-tab.active {
+      transform: translateY(-8px) scale(1.05);
+      background: var(--gradient-sunset);
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(255, 42, 133, 0.6);
+    }
+
+    /* Modals & Toast */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: rgba(5, 3, 10, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 560px;
+      background: rgba(23, 14, 38, 0.96);
+      border: 1px solid rgba(255, 94, 184, 0.35);
+      border-radius: 28px;
+      padding: 30px;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+      animation: zoomIn 0.25s ease;
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      z-index: 60;
+      background: rgba(15, 10, 26, 0.95);
+      border: 1px solid rgba(0, 255, 136, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.35);
+      padding: 12px 20px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 640px) {
+      .ip-box { grid-template-columns: 1fr; }
+      .dock-tab span { display: none; }
+      .dock-tab.active span { display: inline-block; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Canvas -->
+  <div class="bg-canvas">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="retro-grid"></div>
+    <div class="horizon-glow"></div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="appToast" class="toast">
+    <i data-lucide="check-circle-2" style="color: #00ff88; width: 20px; height: 20px;"></i>
+    <div>
+      <div style="font-family: var(--font-display); font-weight: 700; font-size: 13px;">IP скопирован в буфер!</div>
+      <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">46.174.49.213:27015</div>
+    </div>
+  </div>
+
+  <!-- Top Header -->
+  <header>
+    <div class="container header-inner">
+      <div class="brand-logo" onclick="switchTab('home')">
+        <!-- Mini Synthwave Sun Icon -->
+        <svg width="34" height="34" viewBox="0 0 200 200" fill="none">
+          <defs>
+            <linearGradient id="sunGradSm" x1="100" y1="0" x2="100" y2="200" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#ffe600" />
+              <stop offset="40%" stopColor="#ff7b00" />
+              <stop offset="80%" stopColor="#ff2a85" />
+            </linearGradient>
+            <mask id="stripesMaskSm">
+              <circle cx="100" cy="100" r="90" fill="white" />
+              <rect x="0" y="100" width="200" height="4" fill="black" />
+              <rect x="0" y="115" width="200" height="6" fill="black" />
+              <rect x="0" y="132" width="200" height="8" fill="black" />
+              <rect x="0" y="152" width="200" height="12" fill="black" />
+            </mask>
+          </defs>
+          <circle cx="100" cy="100" r="90" fill="url(#sunGradSm)" mask="url(#stripesMaskSm)" />
+        </svg>
+        <span class="brand-name text-gradient">SundBox:)</span>
+        <span class="badge-sandbox">Sandbox</span>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-quick-ip" onclick="copyServerIp()">
+          <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+          <span>46.174.49.213:27015</span>
+        </button>
+        <a href="steam://connect/46.174.49.213:27015" class="btn-play-steam">
+          <i data-lucide="play" style="width: 14px; height: 14px; fill: white;"></i>
+          <span>Играть</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Views Container -->
+  <main class="container">
+    
+    <!-- ================= TAB 1: HOME ================= -->
+    <div id="tab-home" class="tab-content active">
+      <section class="hero">
+        <div class="sun-container">
+          <svg width="170" height="170" viewBox="0 0 200 200" fill="none">
+            <defs>
+              <linearGradient id="sunGradMain" x1="100" y1="0" x2="100" y2="200" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stopColor="#ffe600" />
+                <stop offset="35%" stopColor="#ff7b00" />
+                <stop offset="70%" stopColor="#ff2a85" />
+                <stop offset="100%" stopColor="#9d4edd" />
+              </linearGradient>
+              <mask id="sunStripesMask">
+                <circle cx="100" cy="100" r="90" fill="white" />
+                <rect x="0" y="98" width="200" height="2" fill="black" />
+                <rect x="0" y="108" width="200" height="3" fill="black" />
+                <rect x="0" y="120" width="200" height="4.5" fill="black" />
+                <rect x="0" y="134" width="200" height="6" fill="black" />
+                <rect x="0" y="150" width="200" height="8" fill="black" />
+                <rect x="0" y="168" width="200" height="10" fill="black" />
+                <rect x="0" y="188" width="200" height="14" fill="black" />
+              </mask>
+            </defs>
+            <circle cx="100" cy="100" r="90" fill="url(#sunGradMain)" mask="url(#sunStripesMask)" />
+          </svg>
+        </div>
+
+        <div class="hero-tag">
+          <i data-lucide="sparkles" style="width: 13px; height: 13px;"></i>
+          <span>Garry's Mod Sandbox</span>
+        </div>
+
+        <h1 class="hero-title text-gradient">SundBox:)</h1>
+        <p class="hero-desc">
+          Твоя идеальная песочница в Garry's Mod. Свободное строительство, поддержка Wiremod & Expression 2, расширенные лимиты и надежная защита от лагов.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="steam://connect/46.174.49.213:27015" class="btn-hero-primary">
+            <i data-lucide="play" style="width: 18px; height: 18px; fill: white;"></i>
+            <span>Подключиться к серверу</span>
+          </a>
+          <button class="btn-hero-secondary" onclick="switchTab('shop')">
+            <span>Донат магазин</span>
+            <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+          </button>
+        </div>
+
+        <!-- Monitoring Widget -->
+        <div class="glass-card server-card">
+          <div class="server-card-header">
+            <div class="status-badge">
+              <span class="status-dot"></span>
+              <span>СЕРВЕР ОНЛАЙН</span>
+            </div>
+            <div style="font-size: 12px; color: var(--text-muted); font-family: var(--font-display);">
+              Карта: <strong style="color: #fff; font-family: var(--font-mono);">gm_construct</strong> • 128 Tickrate
+            </div>
+          </div>
+
+          <div class="ip-box">
+            <div>
+              <div class="ip-title">Прямое подключение к серверу</div>
+              <div class="ip-address" onclick="copyServerIp()" title="Кликните для копирования">
+                <span>46.174.49.213:27015</span>
+                <i data-lucide="copy" style="width: 16px; height: 16px; color: var(--text-muted);"></i>
+              </div>
+            </div>
+            <div class="ip-actions">
+              <button class="btn-copy" onclick="copyServerIp()">Скопировать IP</button>
+              <a href="steam://connect/46.174.49.213:27015" class="btn-play-steam">Играть</a>
+            </div>
+          </div>
+
+          <div class="progress-wrap">
+            <div class="progress-info">
+              <span>Игроков онлайн: <strong style="color: #ffe600;">24</strong> / 32 слотов</span>
+              <span>Пинг: 28 ms</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sandbox Advantages Grid -->
+      <section style="margin-top: 30px;">
+        <h2 style="font-family: var(--font-display); font-size: 26px; font-weight: 800; margin-bottom: 20px; text-align: center;">
+          Преимущества сервера SundBox:)
+        </h2>
+
+        <div class="perks-grid">
+          <div class="glass-card perk-card">
+            <div class="perk-icon-wrap" style="background: linear-gradient(135deg, #ffe600, #ff7b00);">
+              <i data-lucide="boxes" style="width: 24px; height: 24px;"></i>
+            </div>
+            <h3 class="perk-title">Расширенные лимиты пропов</h3>
+            <p class="perk-desc">Стройте масштабные механизмы, базы и автомобили без жестких ограничений спавна.</p>
+          </div>
+
+          <div class="glass-card perk-card">
+            <div class="perk-icon-wrap" style="background: linear-gradient(135deg, #ff7b00, #ff2a85);">
+              <i data-lucide="cpu" style="width: 24px; height: 24px;"></i>
+            </div>
+            <h3 class="perk-title">Wiremod & Expression 2</h3>
+            <p class="perk-desc">Полная поддержка E2 скриптов, голограмм, сенсоров и звуковых эмиттеров.</p>
+          </div>
+
+          <div class="glass-card perk-card">
+            <div class="perk-icon-wrap" style="background: linear-gradient(135deg, #ff2a85, #9d4edd);">
+              <i data-lucide="shield-alert" style="width: 24px; height: 24px;"></i>
+            </div>
+            <h3 class="perk-title">Защита от крашей и лагов</h3>
+            <p class="perk-desc">Умный анти-краш алгоритм, перехват бесконечных циклов и стабильный FPS.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= TAB 2: SHOP ================= -->
+    <div id="tab-shop" class="tab-content">
+      <div style="text-align: center; margin-bottom: 30px;">
+        <div class="hero-tag"><i data-lucide="crown"></i><span>Донат Магазин</span></div>
+        <h1 class="hero-title text-gradient">Донатная Админка</h1>
+        <p class="hero-desc">Автоматическая выдача прав на сервере и роли в Discord сразу после оплаты.</p>
+      </div>
+
+      <div class="glass-card shop-plan-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
+          <div>
+            <h2 style="font-family: var(--font-display); font-size: 24px; font-weight: 800;">Флагманский статус «Администратор»</h2>
+            <p style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">Полный контроль для комфортного строительства и развлечений.</p>
+          </div>
+          <div style="text-align: right;">
+            <div id="shopPriceDisplay" style="font-family: var(--font-display); font-size: 32px; font-weight: 800; color: #ffe600;">199 ₽</div>
+            <span style="color: #00ff88; font-size: 11px; font-weight: 600;">Автовыдача 24/7</span>
+          </div>
+        </div>
+
+        <div class="duration-selector">
+          <div class="duration-btn active" onclick="selectDuration(0, 199, '30 дней')">
+            <div style="font-weight: 700; font-size: 14px; font-family: var(--font-display);">30 дней</div>
+            <div style="color: #ffe600; font-weight: 800; font-size: 18px;">199 ₽</div>
+          </div>
+          <div class="duration-btn" onclick="selectDuration(1, 449, '90 дней')">
+            <div style="font-weight: 700; font-size: 14px; font-family: var(--font-display);">90 дней</div>
+            <div style="color: #ffe600; font-weight: 800; font-size: 18px;">449 ₽</div>
+          </div>
+          <div class="duration-btn" onclick="selectDuration(2, 799, 'Навсегда')">
+            <div style="font-weight: 700; font-size: 14px; font-family: var(--font-display);">Навсегда</div>
+            <div style="color: #ffe600; font-weight: 800; font-size: 18px;">799 ₽</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 24px;">
+          <div>
+            <h4 style="font-family: var(--font-display); font-size: 13px; text-transform: uppercase; margin-bottom: 12px; color: #00ff88;">В привилегию входит:</h4>
+            <ul style="list-style: none; font-size: 13px; color: var(--text-muted); line-height: 2;">
+              <li>✔ Режим свободного полёта Noclip</li>
+              <li>✔ Заморозка / Разморозка (Freeze / Unfreeze)</li>
+              <li>✔ Персональный префикс и цвет ника в чате</li>
+              <li>✔ Увеличенный лимит пропов (+500)</li>
+              <li>✔ Роль Администратора на официальном сервере Discord</li>
+            </ul>
+          </div>
+
+          <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.1);">
+            <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 6px;">Ваш SteamID (обязательно):</label>
+            <input type="text" id="steamIdInput" class="input-field" placeholder="STEAM_0:1:46174492 или 76561198..." style="margin-bottom: 12px;" />
+
+            <label style="font-size: 12px; font-weight: 700; display: block; margin-bottom: 6px;">Discord Username (для роли):</label>
+            <input type="text" id="discordInput" class="input-field" placeholder="username" style="margin-bottom: 18px;" />
+
+            <button class="btn-hero-primary" style="width: 100%; justify-content: center;" onclick="openCheckoutModal()">
+              <span>Оформить покупку</span>
+              <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TAB 3: RULES ================= -->
+    <div id="tab-rules" class="tab-content">
+      <div style="text-align: center; margin-bottom: 30px;">
+        <div class="hero-tag"><i data-lucide="shield-check"></i><span>Регламент</span></div>
+        <h1 class="hero-title text-gradient">Правила SundBox:)</h1>
+        <p class="hero-desc">Соблюдайте правила для стабильного FPS и комфортной игры всех строителей.</p>
+      </div>
+
+      <div class="rules-list">
+        <div class="rule-item">
+          <h3 style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px;">§ 1.1 Запрет PropSpam и краш-конструкций</h3>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">Запрещено беспричинно спавнить сотни пропов или создавать лаг-машины, роняющие серверный FPS.</p>
+          <div style="margin-top: 8px; font-size: 11px; color: #ff2a85; font-family: var(--font-mono);">Наказание: Бан от 3 дней до перманентного.</div>
+        </div>
+
+        <div class="rule-item">
+          <h3 style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px;">§ 1.2 Уважение чужих построек (No Griefing)</h3>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">Запрещено портить, удалять или двигать чужие механизмы без разрешения автора.</p>
+          <div style="margin-top: 8px; font-size: 11px; color: #ff2a85; font-family: var(--font-mono);">Наказание: Предупреждение / Бан на 1 день.</div>
+        </div>
+
+        <div class="rule-item">
+          <h3 style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px;">§ 1.3 Wiremod CPU Лимиты</h3>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">Чипы Expression 2 не должны превышать лимит квоты CPU (150 мкс). Бесконечные циклы запрещены.</p>
+          <div style="margin-top: 8px; font-size: 11px; color: #ff2a85; font-family: var(--font-mono);">Наказание: Удаление чипа.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TAB 4: DISCORD ================= -->
+    <div id="tab-discord" class="tab-content">
+      <div style="text-align: center; margin-bottom: 30px;">
+        <div class="hero-tag" style="color: var(--color-discord); border-color: rgba(88,101,242,0.4);"><i data-lucide="message-square"></i><span>Discord</span></div>
+        <h1 class="hero-title text-gradient">Наше Сообщество</h1>
+        <p class="hero-desc">Общайся с инженерами, делись постройками и получай техподдержку.</p>
+      </div>
+
+      <div class="glass-card" style="max-w: 800px; margin: 0 auto; padding: 40px; text-align: center; border-color: rgba(88,101,242,0.4);">
+        <i data-lucide="message-square" style="width: 54px; height: 54px; color: var(--color-discord); margin-bottom: 16px;"></i>
+        <h2 style="font-family: var(--font-display); font-size: 26px; font-weight: 800; margin-bottom: 10px;">SundBox:) Official Discord</h2>
+        <p style="color: var(--text-muted); font-size: 14px; max-width: 480px; margin: 0 auto 24px;">Автоматическая синхронизация донат-ролей, архив E2 чипов, голосовые каналы и новости проекта.</p>
+        <a href="https://discord.gg/gmod-sandbox" target="_blank" class="btn-hero-primary" style="background: var(--color-discord); display: inline-flex;">
+          <span>Присоединиться к Discord</span>
+          <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Checkout Modal (#checkoutModal) -->
+  <div id="checkoutModal" class="modal-backdrop">
+    <div class="modal-box">
+      <h3 style="font-family: var(--font-display); font-size: 22px; font-weight: 800; margin-bottom: 14px;">Подтверждение заказа</h3>
+      <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Вы приобретаете привилегию «Донатная Админка» на сервере SundBox:).</p>
+
+      <div style="background: rgba(0,0,0,0.5); padding: 16px; border-radius: 14px; font-family: var(--font-mono); font-size: 12px; margin-bottom: 20px;">
+        <div>SteamID: <strong id="modalSteamIdDisplay" style="color: #ffe600;">STEAM_0:1:46174492</strong></div>
+        <div style="margin-top: 6px;">Сумма к оплате: <strong id="modalPriceDisplay" style="color: #00ff88; font-size: 14px;">199 ₽</strong></div>
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <button class="btn-copy" style="flex: 1; justify-content: center;" onclick="closeCheckoutModal()">Отмена</button>
+        <button class="btn-hero-primary" style="flex: 2; justify-content: center;" onclick="confirmPayment()">
+          <span>Перейти к оплате</span>
+          <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Bottom Capsule Dock Navigation -->
+  <nav class="dock-nav">
+    <div class="dock-bar">
+      <button id="nav-home" class="dock-tab active" onclick="switchTab('home')">
+        <i data-lucide="home" style="width: 18px; height: 18px;"></i>
+        <span>Главная</span>
+      </button>
+      <button id="nav-shop" class="dock-tab" onclick="switchTab('shop')">
+        <i data-lucide="shopping-bag" style="width: 18px; height: 18px;"></i>
+        <span>Донат</span>
+      </button>
+      <button id="nav-rules" class="dock-tab" onclick="switchTab('rules')">
+        <i data-lucide="shield-check" style="width: 18px; height: 18px;"></i>
+        <span>Правила</span>
+      </button>
+      <button id="nav-discord" class="dock-tab" onclick="switchTab('discord')">
+        <i data-lucide="message-square" style="width: 18px; height: 18px;"></i>
+        <span>Discord</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Server IP & State
+    const SERVER_IP = "46.174.49.213:27015";
+    let currentPrice = 199;
+    let currentPeriod = "30 дней";
+
+    // Tab Switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.dock-tab').forEach(btn => btn.classList.remove('active'));
+
+      const targetTab = document.getElementById('tab-' + tabId);
+      const targetNav = document.getElementById('nav-' + tabId);
+
+      if (targetTab) targetTab.classList.add('active');
+      if (targetNav) targetNav.classList.add('active');
+
+      window.location.hash = '#tab-' + tabId;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Copy IP to Clipboard & Show Toast
+    function copyServerIp() {
+      navigator.clipboard.writeText(SERVER_IP).then(() => {
+        const toast = document.getElementById('appToast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3500);
+      });
+    }
+
+    // Duration Selector in Shop
+    function selectDuration(index, price, period) {
+      currentPrice = price;
+      currentPeriod = period;
+      document.querySelectorAll('.duration-btn').forEach((btn, idx) => {
+        if (idx === index) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+      document.getElementById('shopPriceDisplay').innerText = price + ' ₽';
+    }
+
+    // Modal Handlers
+    function openCheckoutModal() {
+      const steamInput = document.getElementById('steamIdInput').value.trim();
+      if (!steamInput) {
+        alert('Пожалуйста, введите ваш SteamID!');
+        return;
+      }
+      document.getElementById('modalSteamIdDisplay').innerText = steamInput;
+      document.getElementById('modalPriceDisplay').innerText = currentPrice + ' ₽';
+      document.getElementById('checkoutModal').classList.add('open');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.remove('open');
+    }
+
+    function confirmPayment() {
+      window.open('https://lava.top', '_blank');
+      closeCheckoutModal();
+    }
+
+    // Listen to hash change on load
+    window.addEventListener('load', () => {
+      const hash = window.location.hash.replace('#tab-', '').replace('#', '');
+      if (['home', 'shop', 'rules', 'discord'].includes(hash)) {
+        switchTab(hash);
+      }
+    });
+  </script>
+</body>
+</html>
