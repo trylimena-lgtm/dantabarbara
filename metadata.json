@@ -1,0 +1,6 @@
+{
+  "name": "SundBox:) - Garry's Mod Server",
+  "description": "Официальный сайт игрового сервера Garry's Mod SundBox:) — Режим Sandbox, Wiremod, E2, Донат-магазин и комьюнити",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
